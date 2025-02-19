@@ -5,9 +5,10 @@ RSpec.configure do |config|
   config.formatter = :documentation
 end
 
+# Your tests should start here!
 RSpec.describe Passenger do
   let(:charlie) { Passenger.new({ "name" => "Charlie", "age" => 17 }) }
-  let(:alex) { Passenger.new({ "name" => "Alex", "age" => 25 }) }
+  let(:jude) { Passenger.new({ "name" => "jude", "age" => 25 }) }
 
   describe "initialize" do
     it "initializes with a name and age" do
@@ -18,7 +19,7 @@ RSpec.describe Passenger do
 
   describe "adult?" do
     it "returns true if the passenger is an adult" do
-      expect(alex.adult?).to be(true)
+      expect(jude.adult?).to be(true)
     end
 
     it "if the passenger is an adult" do
@@ -29,14 +30,14 @@ RSpec.describe Passenger do
   describe "driver?" do
     it "returns false by default" do
       expect(charlie.driver?).to be(false)
-      expect(alex.driver?).to be(false)
+      expect(jude.driver?).to be(false)
     end
   end
 
   describe "drive" do
     it "allows adults to drive" do
       alex.drive
-      expect(alex.driver?).to be(true)
+      expect(jude.driver?).to be(true)
     end
 
     it "non-adults" do
