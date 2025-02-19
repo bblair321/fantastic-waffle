@@ -5,39 +5,43 @@ RSpec.configure do |config|
   config.formatter = :documentation
 end
 
-# Your tests should start here!
-RSpec.describe Passenger do 
-  
-  describe 'initialize' do
-  it 'is a Passsenger' do
-    passenger = Passenger.new('Bob', 20)
-    expect(passenger).to be_a(Passenger)
+RSpec.describe Passenger do
+  let(:charlie) { Passenger.new({ "name" => "Charlie", "age" => 17 }) }
+  let(:alex) { Passenger.new({ "name" => "Alex", "age" => 25 }) }
+
+  describe "initialize" do
+    it "initializes with a name and age" do
+      expect(charlie.name).to eq("Charlie")
+      expect(charlie.age).to eq(17)
+    end
   end
 
-  it 'can it read the name' do
-    passenger = Passenger.new('Bob', 20)
-    expect(passenger.name).to eq('Bob')
+  describe "adult?" do
+    it "returns true if the passenger is an adult" do
+      expect(alex.adult?).to be(true)
+    end
+
+    it "if the passenger is an adult" do
+      expect(charlie.adult?).to be(false)
+    end
   end
 
-  it 'can it get age' do
-    passenger = Passenger.new('Bob', 5)
-    expect(passenger.age).to eq(5)
+  describe "driver?" do
+    it "returns false by default" do
+      expect(charlie.driver?).to be(false)
+      expect(alex.driver?).to be(false)
+    end
   end
 
-  it 'is adult or not' do
-    passenger = Passenger.new('Bob', 18)
-    expect(passenger.adult?).to eq true
-  end
+  describe "drive" do
+    it "allows adults to drive" do
+      alex.drive
+      expect(alex.driver?).to be(true)
+    end
 
-  it 'is driver?' do
-    passenger = Passenger.new('Bob', 18)
-    expect(passenger.drive).to eq true
+    it "non-adults" do
+      charlie.drive
+      expect(charlie.driver?).to be(false)
+    end
   end
-
-  it 'is drive' do
-    passenger = Passenger.new('Bob', 18)
-    expect(passenger.drive).to eq true
-  end
-end
-
 end
